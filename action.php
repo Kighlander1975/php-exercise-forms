@@ -8,6 +8,7 @@ if(empty($data['task']) || empty($data['description'])) {
     
     $_SESSION['error'] = "Task and Description are required";
     header("location: index.php");
+    exit;
 }
 
 $dir = dirname($path);

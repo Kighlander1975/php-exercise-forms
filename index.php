@@ -39,7 +39,11 @@ unset($_SESSION['success']);
                 border: 1px solid black;
                 box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.5);
 
-                h1 {
+                h1,
+                h2,
+                h3,
+                h4,
+                h5 {
                     width: auto;
                     padding: 3px 5px;
                     text-align: center;
@@ -68,7 +72,7 @@ unset($_SESSION['success']);
                     color: #000;
                 }
 
-                .eingaben {
+                                .eingaben {
                     margin-top: 2rem;
                     margin-bottom: 2rem;
                     display: flex;
@@ -91,10 +95,20 @@ unset($_SESSION['success']);
                             box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.5);
                             width: 100%;
                             box-sizing: border-box;
+                            transition: all 0.3s ease;
 
                             &:not([type="submit"]) {
                                 border: 1px solid #3c3c3c;
                                 background-color: #ebebeb;
+                            }
+                            
+                            /* Fokus-Zustand für Input-Felder */
+                            &:focus {
+                                outline: none;
+                                border: 2px solid #3d00ad;
+                                box-shadow: 0 0 8px 2px rgba(61, 0, 173, 0.3);
+                                background-color: #f5f5f5;
+                                transform: scale(1.02);
                             }
                         }
                     }
@@ -129,6 +143,43 @@ unset($_SESSION['success']);
                             &:hover {
                                 background-color: #715b99;
                             }
+                            
+                            /* Fokus-Zustand für Submit-Button */
+                            &:focus {
+                                outline: none;
+                                box-shadow: 0 0 8px 2px rgba(61, 0, 173, 0.5);
+                                transform: scale(1.05);
+                            }
+                        }
+                    }
+                }
+
+                .table-container {
+                    width:auto;
+                    margin-left: 2rem;
+                    margin-right: 2rem;
+
+                    table {
+                        width:100%;
+                        th {
+                            text-align: left;
+                        }
+                        th:first-child,
+                        td:first-child {
+                            text-align: center;
+                        }
+                        th:first-child {
+                            width: 5%;
+                        }
+                        th:last-child {
+                            width: 75%;
+                        }
+                        /* Abwechselnde Hintergrundfarben für Zeilen */
+                        tr:nth-child(even):not(:first-child) {
+                            background-color: #f2f2f2;
+                        }
+                        tr:nth-child(odd):not(:first-child) {
+                            background-color: #ffffff;
                         }
                     }
                 }
@@ -149,7 +200,7 @@ unset($_SESSION['success']);
                 <div class="eingaben">
                     <div class="eingabe">
                         <label for="task">Aufgabe: </label>
-                        <input type="text" name="task" id="task" />
+                        <input type="text" name="task" id="task" autofocus />
                     </div>
                     <div class="eingabe">
                         <label for="description">Beschreibung:</label>
@@ -165,6 +216,14 @@ unset($_SESSION['success']);
                 </div>
             </form>
             <hr />
+            <?php
+                if (file_exists("./tasks.txt")) {
+                    echo "<h2>Aufgaben:</h2>";
+                    require_once "tasks.php";
+                } else {
+                    echo "<h3>Aktuell keine Aufgaben vorhanden</h3>";
+                }
+            ?>
         </main>
     </body>
 </html>
